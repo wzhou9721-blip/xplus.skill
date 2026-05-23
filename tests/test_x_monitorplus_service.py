@@ -1239,7 +1239,7 @@ class XMonitorPlusServiceTests(unittest.TestCase):
                 "ok": True,
                 "translation": "这是首发机翻",
                 "same_as_source": False,
-                "draft_model": "HY-MT1.5-1.8B-Q4_K_M",
+                "draft_model": "local-mt-test-model",
                 "draft_provider": "local_fast_translation",
                 "draft_ready_at": "2026-04-19T16:00:01+00:00",
             }
@@ -1329,9 +1329,9 @@ class XMonitorPlusServiceTests(unittest.TestCase):
             svc.requests.post = fake_post
             config = svc.base_config()
             config["local_fast_translation_enabled"] = True
-            config["local_fast_translation_api_base"] = "http://127.0.0.1:18081/v1"
+            config["local_fast_translation_api_base"] = "http://127.0.0.1:9/v1"
             config["local_fast_translation_api_key"] = "local"
-            config["local_fast_translation_model"] = "HY-MT1.5-1.8B-Q3_K_M"
+            config["local_fast_translation_model"] = "local-mt-test-model"
             config["translate_to"] = "zh-CN"
 
             result = svc.fetch_local_fast_translation(config, "Original source text", limit=1400)
@@ -1355,9 +1355,9 @@ class XMonitorPlusServiceTests(unittest.TestCase):
             svc.requests.post = timeout_post
             config = svc.base_config()
             config["local_fast_translation_enabled"] = True
-            config["local_fast_translation_api_base"] = "http://127.0.0.1:18081/v1"
+            config["local_fast_translation_api_base"] = "http://127.0.0.1:9/v1"
             config["local_fast_translation_api_key"] = "local"
-            config["local_fast_translation_model"] = "HY-MT1.5-1.8B-Q3_K_M"
+            config["local_fast_translation_model"] = "local-mt-test-model"
             config["local_fast_translation_timeout_seconds"] = 8
             config["local_fast_translation_initial_timeout_seconds"] = 0.5
             config["local_fast_translation_initial_failure_cooldown_seconds"] = 30
@@ -1397,9 +1397,9 @@ class XMonitorPlusServiceTests(unittest.TestCase):
             svc.requests.post = lambda *args, **kwargs: FakeResponse()
             config = svc.base_config()
             config["local_fast_translation_enabled"] = True
-            config["local_fast_translation_api_base"] = "http://127.0.0.1:18081/v1"
+            config["local_fast_translation_api_base"] = "http://127.0.0.1:9/v1"
             config["local_fast_translation_api_key"] = "local"
-            config["local_fast_translation_model"] = "HY-MT1.5-1.8B-Q4_K_M"
+            config["local_fast_translation_model"] = "local-mt-test-model"
 
             result = svc.fetch_local_fast_translation(config, "Texto original en español", limit=1400)
 
@@ -2422,4 +2422,5 @@ class XMonitorPlusServiceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
