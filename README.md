@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/xplus-skill-mark.svg" width="96" alt="xplus.skill logo">
+  <img src="https://cdn.simpleicons.org/x/ffffff" width="72" alt="X logo">
 </p>
 
 <h1 align="center">xplus.skill</h1>
