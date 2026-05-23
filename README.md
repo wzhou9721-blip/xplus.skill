@@ -1,8 +1,22 @@
-# xplus.skill
+<p align="center">
+  <img src="assets/xplus-skill-mark.svg" width="96" alt="xplus.skill logo">
+</p>
 
-[中文说明](README.zh-CN.md)
+<h1 align="center">xplus.skill</h1>
 
-Browser-based low-latency monitoring for X/Twitter home feeds and private Lists, designed for Codex and other local agents first. Discord is an optional distribution channel.
+<p align="center">
+  A browser-based X/Twitter monitoring skill for Codex and other local agents.
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> ·
+  <a href="README.zh-CN.md">中文</a> ·
+  <a href="SKILL.md">Skill</a>
+</p>
+
+---
+
+xplus.skill monitors X/Twitter home feeds and private Lists through a real browser session. It writes captured events to local JSONL for agents, and can optionally distribute real-time alerts to Discord.
 
 This repository contains the public, portable version of the `xplus.skill` Codex skill and service scripts.
 

@@ -1,6 +1,20 @@
-# xplus.skill
+<p align="center">
+  <img src="assets/xplus-skill-mark.svg" width="96" alt="xplus.skill logo">
+</p>
 
-[English](README.md)
+<h1 align="center">xplus.skill</h1>
+
+<p align="center">
+  一个给 Codex 和其他本地 agent 用的 X/Twitter 浏览器监控 skill。
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> ·
+  <a href="README.zh-CN.md">中文</a> ·
+  <a href="SKILL.md">Skill</a>
+</p>
+
+---
 
 xplus.skill 是一个用浏览器监控 X/Twitter 的小工具。
 
