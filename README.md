@@ -66,7 +66,7 @@ Stop it:
 python scripts/x_monitorplus_service.py --root .runtime stop
 ```
 
-On Windows, the wrapper scripts do the same thing and respect `PYTHON_EXE` if you want to use a specific interpreter.
+On Windows, optional wrapper scripts live in `bin/windows/` and respect `PYTHON_EXE` if you want to use a specific interpreter.
 
 Without `--root`, runtime data defaults to an OS-local `XMonitorPlus` directory. For agent use, passing an explicit `--root` is recommended.
 
