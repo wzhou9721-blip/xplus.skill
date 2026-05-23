@@ -133,6 +133,10 @@ python scripts/x_monitorplus_service.py --root .runtime\slot-2 start
 
 Do not open-profile and run the watcher for the same slot at the same time. A browser profile can only be owned by one active browser process.
 
+## Responsible Use
+
+xplus.skill is intended for personal, low-volume monitoring of feeds or Lists you can access with your own account. X/Twitter may restrict automated access, scraping, or browser automation in its Terms and policies. Use this project responsibly, respect platform rules, and do not use it for bulk scraping, resale of X data, spam, bypassing access restrictions, or model training.
+
 ## Configuration
 
 See `config.example.json` for a safe starting point.

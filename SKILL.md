@@ -140,6 +140,10 @@ To enable it, set:
 
 Never commit real tokens.
 
+## Responsible Use
+
+Use xplus.skill for personal, low-volume monitoring of feeds or Lists the user's own account can access. Do not present it as a compliance workaround for the X API. Do not use it for bulk scraping, resale of X data, spam, bypassing access restrictions, or model training.
+
 ## Multiple Profiles
 
 Default to one profile. Only mention multiple profiles if the user asks.

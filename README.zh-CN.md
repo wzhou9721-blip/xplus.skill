@@ -193,6 +193,10 @@ python scripts/x_monitorplus_service.py --root .runtime/slot-2 open-profile
 
 每个目录都会保存自己的登录状态。
 
+## 负责任使用
+
+xplus.skill 适合个人低频监控自己账号能访问的首页或 List。X/Twitter 的条款可能限制自动化访问、抓取或浏览器自动化。请负责任地使用，不要用于大规模爬取、数据转售、垃圾信息、绕过访问限制或模型训练。
+
 ## 常见问题
 
 `missing_config`  
