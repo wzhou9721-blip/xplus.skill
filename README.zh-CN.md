@@ -146,6 +146,37 @@ python scripts/x_monitorplus_service.py --root .runtime stop
 - `source_full_text`：更完整的原文
 - `target_url`：来自哪个首页或 List
 
+## 可选：Hermes Tweet 搜索抓取
+
+浏览器监控仍然是首页和私有 List 的默认方式。如果还想把公开 X 搜索词写进同一个本地归档，可以启用 Hermes Tweet 抓取脚本。它使用 Hermes Tweet/Xquik 读取 API，把搜索结果标准化后写入：
+
+```text
+.runtime/event_archive.jsonl
+```
+
+配置示例：
+
+```json
+{
+  "hermes_tweet_enabled": true,
+  "hermes_tweet_queries": [
+    {"name": "Agent Skills", "query": "Hermes Agent skill", "limit": 10},
+    "OpenClaw Twitter skill"
+  ],
+  "hermes_tweet_api_base": "https://xquik.com",
+  "hermes_tweet_api_key_env": "XQUIK_API_KEY"
+}
+```
+
+运行前把 API key 放在环境变量里，不要写进 Git：
+
+```bash
+export XQUIK_API_KEY="xq_your_key"
+python scripts/x_monitorplus_hermes_tweet.py --root .runtime fetch
+```
+
+这个脚本只读取公开搜索结果。它不会发帖、点赞、转发、关注、发送 DM，也不会修改浏览器监控设置。重复运行会使用 `seen_archive.json` 去重。
+
 ## 推荐接 Discord，但不是必须
 
 本地文件跑通以后，如果你想让消息实时推到 Discord，可以打开 Discord。

@@ -92,6 +92,33 @@ Captured posts are written under the runtime folder:
 
 Codex or any other agent can read `event_archive.jsonl` as the primary local interface.
 
+## Optional Hermes Tweet Search Fetcher
+
+The browser monitor remains the default path for home feeds and private Lists. If an agent also needs public X search terms in the same JSONL archive, enable the optional Hermes Tweet fetcher. It uses the Hermes Tweet/Xquik read API and writes normalized search results to `.runtime/event_archive.jsonl`.
+
+Add queries to `.runtime/config.json`:
+
+```json
+{
+  "hermes_tweet_enabled": true,
+  "hermes_tweet_queries": [
+    {"name": "Agent Skills", "query": "Hermes Agent skill", "limit": 10},
+    "OpenClaw Twitter skill"
+  ],
+  "hermes_tweet_api_base": "https://xquik.com",
+  "hermes_tweet_api_key_env": "XQUIK_API_KEY"
+}
+```
+
+Set the API key in your shell, then fetch once:
+
+```bash
+export XQUIK_API_KEY="xq_your_key"
+python scripts/x_monitorplus_hermes_tweet.py --root .runtime fetch
+```
+
+The fetcher is read-only. It does not post, like, repost, follow, send DMs, or change browser monitor settings. It deduplicates with `seen_archive.json` so repeated runs only append new results.
+
 ## Optional Multiple Profiles
 
 Start with one runtime root. Add more only when you need multiple X accounts, isolated Lists, or separate delivery settings.

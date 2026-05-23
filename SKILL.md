@@ -39,6 +39,14 @@ Supporting runtime files:
 
 `event_archive.jsonl` is the interface another agent should read.
 
+Optional public search companion:
+
+```text
+scripts/x_monitorplus_hermes_tweet.py
+```
+
+This fetcher uses Hermes Tweet/Xquik read API search results and appends normalized events to the same archive. It does not replace the browser monitor for home feeds or private Lists.
+
 ## Requirements
 
 - Python 3.10+
@@ -123,6 +131,39 @@ Each line is a JSON object. Important fields usually include:
 
 Use `status` first if no events appear.
 
+## Optional Hermes Tweet Search
+
+Use the Hermes Tweet fetcher only when the user asks for public X search terms in the xplus.skill archive, or when browser feed/List monitoring is already running and the agent needs query-based enrichment.
+
+In `.runtime/config.json`:
+
+```json
+{
+  "hermes_tweet_enabled": true,
+  "hermes_tweet_queries": [
+    {"name": "Agent Skills", "query": "Hermes Agent skill", "limit": 10},
+    "OpenClaw Twitter skill"
+  ],
+  "hermes_tweet_api_base": "https://xquik.com",
+  "hermes_tweet_api_key_env": "XQUIK_API_KEY"
+}
+```
+
+Run:
+
+```bash
+export XQUIK_API_KEY="xq_your_key"
+python scripts/x_monitorplus_hermes_tweet.py --root .runtime fetch
+```
+
+Rules:
+
+- keep the browser monitor as the default for home feeds and private Lists
+- use Hermes Tweet search only for public query collection
+- never write API keys to tracked files
+- treat the fetcher as read-only; do not post, like, repost, follow, DM, or change account state
+- read results from `.runtime/event_archive.jsonl` just like browser-captured events
+
 ## Optional Discord
 
 Discord is a distribution sink, not a requirement.
@@ -172,4 +213,5 @@ Run tests from the repository root:
 ```bash
 python -m unittest discover -s tests
 python scripts/x_monitorplus_regression_smoke.py
+python scripts/x_monitorplus_hermes_tweet.py --root .runtime fetch
 ```
