@@ -119,6 +119,8 @@ python scripts/x_monitorplus_hermes_tweet.py --root .runtime fetch
 
 The fetcher is read-only. It does not post, like, repost, follow, send DMs, or change browser monitor settings. It deduplicates with `seen_archive.json` so repeated runs only append new results.
 
+Xquik is an independent third-party service. Not affiliated with X Corp. "Twitter" and "X" are trademarks of X Corp.
+
 ## Optional Multiple Profiles
 
 Start with one runtime root. Add more only when you need multiple X accounts, isolated Lists, or separate delivery settings.

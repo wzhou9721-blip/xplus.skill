@@ -2,7 +2,6 @@
 import importlib.util
 import json
 import shutil
-import tempfile
 import unittest
 from pathlib import Path
 from uuid import uuid4
@@ -116,6 +115,20 @@ class FakeResponse:
 
 
 class XMonitorPlusServiceTests(unittest.TestCase):
+    def test_watchdog_keeps_supported_slot_roots_distinct(self):
+        roots = [
+            "x-monitor-plus",
+            "x-monitor-plus-2",
+            "x-monitor-plus-3",
+            "x-monitor-plus-4",
+            "x-monitor-plus-5",
+        ]
+
+        self.assertEqual(
+            [watchdog.slot_key(root) for root in roots],
+            ["slot2", "slot3", "slot4", "slot5", "slot6"],
+        )
+
     def test_default_browser_channel_auto_falls_back_to_bundled_chromium(self):
         self.assertEqual(svc.base_config()["browser_channel"], "auto")
         self.assertEqual(svc.browser_channel_sequence({"browser_channel": "auto"}), ["chrome", ""])
@@ -2422,5 +2435,3 @@ class XMonitorPlusServiceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-

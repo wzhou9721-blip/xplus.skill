@@ -202,6 +202,12 @@ def slot_key(root):
     name = Path(root).name
     if name.endswith("-2"):
         return "slot3"
+    if name.endswith("-3"):
+        return "slot4"
+    if name.endswith("-4"):
+        return "slot5"
+    if name.endswith("-5"):
+        return "slot6"
     return "slot2"
 
 
