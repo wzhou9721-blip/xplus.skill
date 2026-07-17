@@ -112,6 +112,16 @@ def is_process_running(pid):
             return False
     except Exception:
         return False
+    if os.name != "nt":
+        try:
+            os.kill(pid_value, 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True
+        except OSError:
+            return False
+        return True
     if os.name == "nt":
         try:
             import ctypes
