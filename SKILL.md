@@ -213,5 +213,4 @@ Run tests from the repository root:
 ```bash
 python -m unittest discover -s tests
 python scripts/x_monitorplus_regression_smoke.py
-python scripts/x_monitorplus_hermes_tweet.py --root .runtime fetch
 ```

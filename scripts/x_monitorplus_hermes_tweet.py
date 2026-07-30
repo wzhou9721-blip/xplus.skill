@@ -27,10 +27,6 @@ def clean_text(value):
     return svc.clean_text(value)
 
 
-def compact_error_text(value, limit=280):
-    return svc.compact_error_text(value, limit=limit)
-
-
 def config_bool(value, default=False):
     return svc.config_bool(value, default)
 
@@ -65,11 +61,13 @@ def normalize_query_configs(config):
         else:
             continue
         query = clean_text(entry.get("query", ""))
-        if not query or query in seen:
+        if (
+            not query
+            or not config_bool(entry.get("enabled", True), True)
+            or query in seen
+        ):
             continue
         seen.add(query)
-        if not config_bool(entry.get("enabled", True), True):
-            continue
         queries.append(
             {
                 "query": query,
@@ -342,6 +340,16 @@ def build_parser():
     return parser
 
 
+def http_error_payload(exc):
+    response = exc.response
+    return {
+        "ok": False,
+        "action": "hermes_tweet_fetch",
+        "error": "http_error",
+        "status_code": response.status_code if response is not None else None,
+    }
+
+
 def main():
     svc.configure_stdio()
     args = build_parser().parse_args()
@@ -351,19 +359,7 @@ def main():
         print(json.dumps(payload, ensure_ascii=False))
         return 0 if payload.get("ok", True) else 1
     except requests.HTTPError as exc:
-        body = exc.response.text if exc.response is not None else ""
-        print(
-            json.dumps(
-                {
-                    "ok": False,
-                    "action": "hermes_tweet_fetch",
-                    "error": str(exc),
-                    "status_code": exc.response.status_code if exc.response is not None else None,
-                    "body": compact_error_text(body, limit=500),
-                },
-                ensure_ascii=False,
-            )
-        )
+        print(json.dumps(http_error_payload(exc), ensure_ascii=False))
         return 2
     except Exception as exc:
         print(json.dumps({"ok": False, "action": "hermes_tweet_fetch", "error": str(exc)}, ensure_ascii=False))

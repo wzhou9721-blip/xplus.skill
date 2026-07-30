@@ -38,6 +38,21 @@ class FakeResponse:
 
 
 class HermesTweetFetcherTests(unittest.TestCase):
+    def test_disabled_duplicate_does_not_suppress_enabled_query(self):
+        queries = hermes.normalize_query_configs(
+            {
+                "hermes_tweet_queries": [
+                    {"query": "openclaw skill", "enabled": False},
+                    {"query": "openclaw skill", "enabled": True, "limit": 5},
+                ]
+            }
+        )
+
+        self.assertEqual(
+            queries,
+            [{"query": "openclaw skill", "name": "openclaw skill", "limit": 5}],
+        )
+
     def test_disabled_fetch_skips_without_api_key(self):
         with temporary_test_dir() as root:
             store = hermes.svc.Store(root=root)
@@ -65,6 +80,25 @@ class HermesTweetFetcherTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertEqual(result["error"], "missing_api_key")
         self.assertIn("XQUIK_API_KEY", result["api_key_envs"])
+
+    def test_http_error_payload_excludes_response_and_request_details(self):
+        response = FakeResponse({"debug": "private response detail"}, status_code=403)
+        error = hermes.requests.HTTPError(
+            "403 error for https://xquik.com/search?q=private-query",
+            response=response,
+        )
+
+        result = hermes.http_error_payload(error)
+
+        self.assertEqual(
+            result,
+            {
+                "ok": False,
+                "action": "hermes_tweet_fetch",
+                "error": "http_error",
+                "status_code": 403,
+            },
+        )
 
     def test_fetch_writes_normalized_events_and_dedupes_seen_ids(self):
         original_get = hermes.requests.get
