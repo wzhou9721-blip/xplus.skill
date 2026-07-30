@@ -112,6 +112,16 @@ def is_process_running(pid):
             return False
     except Exception:
         return False
+    if os.name != "nt":
+        try:
+            os.kill(pid_value, 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True
+        except OSError:
+            return False
+        return True
     if os.name == "nt":
         try:
             import ctypes
@@ -202,6 +212,12 @@ def slot_key(root):
     name = Path(root).name
     if name.endswith("-2"):
         return "slot3"
+    if name.endswith("-3"):
+        return "slot4"
+    if name.endswith("-4"):
+        return "slot5"
+    if name.endswith("-5"):
+        return "slot6"
     return "slot2"
 
 
